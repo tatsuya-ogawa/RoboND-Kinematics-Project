@@ -142,15 +142,14 @@ def test_code(test_case):
     R_y = rot_y(-pi/2)
 
     # calculate total correction factor
-    Tcorr = simplify(R_z * R_y)
+    Tcorr = R_z * R_y
 
 
     # symbol for req result
     R0_6 = rot_z(yaw) * rot_y(pitch) * rot_x(roll)
 
     # for theta4,5,6
-    T0_3 = T0_1 * T1_2 * T2_3
-    R0_3 = T0_3
+    R0_3 = T0_1 * T1_2 * T2_3
     R3_6 = R0_3 ** -1 * R0_6
 
     # Extract end-effector position and orientation from request
