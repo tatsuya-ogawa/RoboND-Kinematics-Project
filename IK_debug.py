@@ -151,7 +151,7 @@ def test_code(test_case):
     # for theta4,5,6
     R0_3 = T0_1 * T1_2 * T2_3
     R3_6 = R0_3 ** -1 * R0_6
-
+    T0_7 = T0_1 * T1_2 * T2_3 * T3_4 * T4_5 * T5_6 * T6_G
     # Extract end-effector position and orientation from request
     # px,py,pz = end-effector position
     # roll, pitch, yaw = end-effector orientation
@@ -203,13 +203,18 @@ def test_code(test_case):
     ## as the input and output the position of your end effector as your_ee = [x,y,z]
 
     ## (OPTIONAL) YOUR CODE HERE!
+    ForwardKinematics = T0_7.evalf(subs={q1: theta1, q2: theta2, q3: theta3, q4: theta4, q5: theta5, q6: theta6})
+
+    ex = ForwardKinematics[0, 3]
+    ey = ForwardKinematics[1, 3]
+    ez = ForwardKinematics[2, 3]
 
     ## End your code input for forward kinematics here!
     ########################################################################################
 
     ## For error analysis please set the following variables of your WC location and EE location in the format of [x,y,z]
-    your_wc = [1,1,1] # <--- Load your calculated WC values in this array
-    your_ee = [1,1,1] # <--- Load your calculated end effector value from your forward kinematics
+    your_wc = [wx, wy, wz]  # <--- Load your calculated WC values in this array
+    your_ee = [ex, ey, ez]  # <--- Load your calculated end effector value from your forward kinematics
     ########################################################################################
 
     ## Error analysis
