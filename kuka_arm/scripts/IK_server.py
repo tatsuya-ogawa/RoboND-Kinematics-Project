@@ -139,8 +139,8 @@ def handle_calculate_IK(req):
             (p_roll, p_pitch, p_yaw) = tf.transformations.euler_from_quaternion(
                 [req.poses[x].orientation.x, req.poses[x].orientation.y,
                     req.poses[x].orientation.z, req.poses[x].orientation.w])
-     
-            ### Your IK code here 
+
+            ### Your IK code here
             # Compensate for rotation discrepancy between DH parameters and Gazebo
             #
             #
@@ -179,10 +179,11 @@ def handle_calculate_IK(req):
             R3_6_eval = T3_6.evalf(subs={roll: p_roll, pitch: p_pitch, yaw: p_yaw, q1: theta1, q2: theta2, q3: theta3})
             theta4, theta5, theta6 = tf.transformations.euler_from_matrix(np.array(R3_6_eval).astype(np.float64),
                                                                           axes='ryzx')
-            theta4 = theta4 + pi
-            theta6 = theta6 + pi / 2
+            theta5 = theta5 - pi / 2
+            #theta4 = theta4 + pi
+            theta6 = theta6 - pi / 2
             ###
-		
+
             # Populate response for the IK request
             # In the next line replace theta1,theta2...,theta6 by your joint angle variables
             joint_trajectory_point.positions = [theta1, theta2, theta3, theta4, theta5, theta6]
